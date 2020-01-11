@@ -42,10 +42,13 @@ function TimerApp({ lightMode, setLightMode }) {
     minimumIntegerDigits: 2,
     useGrouping: false
   });
-  const renderMinutes = Math.floor(seconds / MINUTES).toLocaleString("en-US", {
-    minimumIntegerDigits: 2,
-    useGrouping: false
-  });
+  const renderMinutes = Math.floor((seconds % HOURS) / MINUTES).toLocaleString(
+    "en-US",
+    {
+      minimumIntegerDigits: 2,
+      useGrouping: false
+    }
+  );
   const renderHours = Math.floor(seconds / HOURS).toLocaleString("en-US", {
     minimumIntegerDigits: 2,
     useGrouping: false

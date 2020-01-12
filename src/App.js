@@ -25,7 +25,7 @@ const TimerDisplay = styled.section`
   text-align: center;
   font-family: monospace;
   color: ${props => props.theme.color};
-  border: 4px solid ${props => props.theme.color};
+  border: 4px dotted ${props => props.theme.color};
   border-radius: 50%;
   height: 320px;
   width: 320px;
@@ -33,6 +33,36 @@ const TimerDisplay = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: center;
+`;
+
+const TimerControls = styled.section`
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 120px;
+  margin: 0 auto;
+  width: 320px;
+`;
+
+const Button = styled.button`
+  width: 80px;
+  height: 40px;
+  border: 0;
+  outline: 0;
+  border-radius: 80px;
+  background-color: ${props => props.theme.color};
+  color: ${props => props.theme.bgColor};
+  cursor: pointer;
+  letter-spacing: 1.2px;
+  box-shadow: 0px 0px 2px 2px rgba(0, 0, 0, 0.1);
+  text-transform: capitalize;
+  transition: all 0.3s;
+  &:hover {
+    transform: scale(1.05);
+  }
+  &:active {
+    transform: scale(0.96);
+  }
 `;
 
 export function TimerApp({ lightMode, setLightMode }) {
@@ -64,6 +94,10 @@ export function TimerApp({ lightMode, setLightMode }) {
   });
   return (
     <article>
+      <button type="button" onClick={() => setLightMode(!lightMode)}>
+        {lightMode ? 'dark' : 'light'} theme
+      </button>
+      <GlobalStyle />
       <TimerDisplay>
         <header>
           <h1 style={{ fontSize: '4em' }}>
@@ -74,15 +108,15 @@ export function TimerApp({ lightMode, setLightMode }) {
           <p style={{ fontSize: '2em', margin: 0 }}>HH:MM:SS</p>
         </footer>
       </TimerDisplay>
-      <button type="button" onClick={() => setActive(!active)}>
-        {active ? 'pause' : 'start'}
-      </button>
-      <button type="reset" onClick={() => setSeconds(0)}>
-        reset
-      </button>
-      <button type="button" onClick={() => setLightMode(!lightMode)}>
-        {lightMode ? 'dark' : 'light'} theme
-      </button>
+      <TimerControls>
+        <Button type="button">lap</Button>
+        <Button type="button" onClick={() => setActive(!active)}>
+          {active ? 'pause' : 'start'}
+        </Button>
+        <Button type="reset" onClick={() => setSeconds(0)}>
+          reset
+        </Button>
+      </TimerControls>
     </article>
   );
 }
@@ -91,7 +125,6 @@ export default function App() {
   const [lightMode, setLightMode] = React.useState(true);
   return (
     <ThemeProvider theme={lightMode ? lightTheme : darkTheme}>
-      <GlobalStyle />
       <TimerApp setLightMode={setLightMode} lightMode={lightMode} />
     </ThemeProvider>
   );

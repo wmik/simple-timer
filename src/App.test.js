@@ -13,6 +13,7 @@ test('TimerApp renders without crashing', async () => {
   );
   expect(await findByText(/00:00:00/, { selector: 'h1' })).toBeVisible();
   expect(await findByText(/HH:MM:SS/, { selector: 'p' })).toBeVisible();
+  expect(await findByText(/lap/, { selector: 'button' })).toBeVisible();
   expect(await findByText(/start/, { selector: 'button' })).toBeVisible();
   expect(await findByText(/reset/, { selector: 'button' })).toBeVisible();
   expect(await findByText(/dark theme/, { selector: 'button' })).toBeVisible();
